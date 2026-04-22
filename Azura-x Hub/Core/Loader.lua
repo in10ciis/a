@@ -1,16 +1,19 @@
-local KeySystem = require(script.KeySystem)
-local GameRouter = require(script.GameRouter)
-
 local Loader = {}
 
 function Loader:Init()
-    if not KeySystem:Check() then
-        warn("Key invalid")
-        return
-    end
+    print("[Loader] Initialisation...")
 
-    local gameModule = GameRouter:GetGame()
-    gameModule:Init()
+    local Settings = require(script.Parent.Config.Settings)
+    local Colors   = require(script.Parent.Config.Colors)
+
+    local UI       = require(script.Parent.UI.Menu)
+    local Router   = require(script.Parent.Core.GameRouter)
+
+    UI:Init(Settings, Colors)
+
+    Router:Init(Settings, UI)
+
+    print("[Loader] Chargé avec succès")
 end
 
 return Loader
